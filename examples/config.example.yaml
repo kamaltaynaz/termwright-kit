@@ -1,0 +1,30 @@
+# EXAMPLE ONLY: the shape of a config file. Every value is a placeholder.
+environments:
+  test:
+    base_url: https://canvas.test.example.edu
+    token_env_var: CANVAS_TOKEN_TEST         # the token itself is never in this file
+    writes_allowed: true
+    notifications_allowed: false
+  production:
+    base_url: https://canvas.example.edu
+    token_env_var: CANVAS_TOKEN_PRODUCTION
+    writes_allowed: true
+    notifications_allowed: true              # only here, and enforced in code too
+
+accounts:
+  courses_account_id: ACCOUNT_ID             # where term courses are created
+  never_write_account_ids: [ROOT_ACCOUNT_ID]
+
+naming:
+  course_sis_id: "{term}-{course_number}-{sections}"     # write YOUR pattern and an example
+  section_sis_id: "{course_sis_id_base}-{section}-{canvas_course_id}"
+
+limits:
+  max_courses_per_plan: 10
+  max_actions_per_plan: 300
+  write_pacing_seconds: 0.2
+  circuit_breaker_after_failures: 3
+  plan_max_age_hours: {test: 72, production: 12}
+
+secrets:
+  token_dir: "~/.config/YOUR_TOOL/"          # outside the repository, owner-only permissions
